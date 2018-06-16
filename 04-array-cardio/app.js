@@ -22,25 +22,62 @@ const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick
 
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
+const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600))
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors' first and last names
+const fullNames = inventors
+  .sort((a,b) => ((a.passed - a.year) < (b.passed - b.year)) ? 1 : -1)
+  .map(inventor => `${inventor.first}  ${inventor.last} `+(inventor.passed - inventor.year))
+// console.table(fullNames)
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
+// const oldestToYoungest = inventors.sort((a, b) => {
+//   if (a.year < b.year) {
+//     return -1
+//   }
+//   if (a.year > b.year) {
+//     return 1
+//   }
+//   return 0
+// })
+const oldestToYoungest = inventors.sort((a,b) => a.year > b.year ? 1 : -1)
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
+const totalYearsLived = inventors.reduce((total, inventor) => {
+  return total + (inventor.passed - inventor.year)
+}, 0)
 
 // 5. Sort the inventors by years lived
+const longestLived = inventors.sort((a,b) => ((a.passed - a.year) < (b.passed - b.year)) ? 1 : -1)
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+/*const container = document.querySelector('.mw-category')
+const links = Array.from(container.querySelectorAll('a')) */
+// or above
+// const links = [...container.querySelectorAll('a')]
+/*links
+  .map(link => link.textContent)
+  .filter(link => link.includes('de'))*/
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+const lastnameAlphabetically = people.map(person => {
+  let names = person.split(',')
+  return `${names[1].trim()}, ${names[0]}`
+}).sort()
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
 const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+const typesOfTransportation = data.reduce((transportations, type) => {
+  if (!transportations[type]) {
+    transportations[type] = 0
+  }
+  transportations[type]++
+  return transportations
+}, {})
+console.table(typesOfTransportation)

@@ -12,3 +12,25 @@ function debounce(func, wait = 20, immediate = true) {
     if (callNow) func.apply(context, args);
   };
 }
+
+const sliderImages = document.querySelectorAll('img.slide-in')
+
+function checkSlide(event) {
+  sliderImages.forEach(sliderImage => {
+    // Halfway through the image
+    const slideInAt = (window.scrollY + window.innerHeight) - (sliderImage.height / 2)
+    // Bottom of the image
+    const imageBottom = sliderImage.offsetTop + sliderImage.height
+    
+    const isHalfShown = slideInAt > sliderImage.offsetTop
+    const isNotScrolledPast = window.scrollY < imageBottom
+
+    if (isHalfShown && isNotScrolledPast) {
+      sliderImage.classList.add('active')
+    } else {
+      sliderImage.classList.remove('active')
+    }
+  })
+}
+
+window.addEventListener('scroll', debounce(checkSlide))

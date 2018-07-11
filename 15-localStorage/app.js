@@ -20,7 +20,7 @@ function addItem(event) {
 function populateList(plates = [], plateslist) {
 	if(!plates.length){
 		// console.error('No items in array')
-		plateslist.innerHTML = "Loading Tapas..."
+		plateslist.innerHTML = "<li>Loading Tapas...</li>"
 		return
 	}
 	plateslist.innerHTML = plates.map((plate, index) => {
@@ -51,7 +51,7 @@ function toggleDone(event) {
 		})
 	}
 
-	console.log(items)
+	// console.log(items)
 	populateList(items, itemsList)
 	localStorage.setItem('items', JSON.stringify(items))
 }

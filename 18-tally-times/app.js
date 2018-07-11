@@ -1,27 +1,28 @@
 const videos = document.querySelector('.videos')
-const videoEl = Array.from(videos.querySelectorAll('li[data-time]'))
+const videoTimeNodes = Array.from(videos.querySelectorAll('[data-time]'))
 
 function getSeconds(timecode) {
-	let times = []
-	times = ([hour, min, sec] = timecode.split(':'))
+	// Not verbatim representation of a timecode
+	const [hour, min, sec] = timecode.split(':').map(parseFloat)
 
-	if (times.length === 3) {
-		return (Number(times[0]) * 3600) + (Number(times[1]) * 60) + (Number(times[2]))
+	// Feels unusual and kinda weird
+	if (hour && min && sec) {
+		return (hour * 3600) + (min * 60) + sec
 	}
-
-	return (Number(times[0]) * 60) + Number(times[1])
+	// Have server return timecodes in hh:mm:ss
+	return (hour * 60) + min
 }
 
 function getHumanReadableTime(seconds) {
 	return {
-		hour: Math.floor(seconds/3600),
-		minute: Math.floor(seconds/60),
-		second: seconds - Math.floor(seconds/60) * 60
+		hour: Math.floor(seconds / 3600),
+		minute: Math.floor((seconds % 3600) / 60),
+		second: seconds - Math.floor(seconds / 60) * 60
 	}
 }
 
-let totalSeconds = videoEl.reduce((seconds, video) => {
-	return seconds += getSeconds(video.dataset.time)
+let totalSeconds = videoTimeNodes.reduce((seconds, videoTimeNode) => {
+	return seconds += getSeconds(videoTimeNode.dataset.time)
 }, 0)
 
 console.log(getHumanReadableTime(totalSeconds))

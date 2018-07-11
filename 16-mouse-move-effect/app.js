@@ -1,6 +1,6 @@
 const hero = document.querySelector('.hero')
 const copy = hero.querySelector('h1')
-const walk = 100
+const walk = 150
 
 function dynamicShadow(event) {
 	const { offsetWidth: width, offsetHeight: height } = hero
@@ -16,10 +16,10 @@ function dynamicShadow(event) {
 	const yWalk = Math.round((y / height * walk) - (walk / 2))
 
 	copy.style.textShadow = `
-		${xWalk}px ${yWalk}px 0 rgba(255, 0, 49, 0.5),
-		${xWalk * -1}px ${yWalk}px 0 rgba(0, 120, 36, 0.7),
-		${yWalk }px ${xWalk* -1}px 0 rgba(82, 12, 36, 0.3),
-		${yWalk * -1}px ${xWalk}px 0 rgba(98, 20, 6, 0.5)
+		${xWalk}px ${yWalk * -1}px 0 rgba(17, 75, 95, .9),
+		${xWalk * -1}px ${yWalk}px 0 rgba(69, 105, 144, .88),
+		${yWalk }px ${xWalk* -1}px 0 rgba(244, 91, 105, .86),
+		${yWalk * -1}px ${xWalk}px 0 rgba(107, 39, 55, .84)
 	`
 }
 

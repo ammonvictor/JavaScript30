@@ -14,7 +14,7 @@ bands
 })
 
 // ||
-// .map(band => liHtml += `<li>${band}</li>`).join()
+// liHtml = bands.map(band => `<li>${band}</li>`).join()
 
 // console.table(bands)
 bandsUl.innerHTML = liHtml

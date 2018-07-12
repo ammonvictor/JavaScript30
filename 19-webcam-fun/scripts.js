@@ -4,12 +4,18 @@ const ctx = canvas.getContext('2d');
 const strip = document.querySelector('.strip');
 const snap = document.querySelector('.snap');
 
+function tooglePlay(event) {
+    // (video.paused) ? video.play() : video.pause()
+    const method = video.paused ? 'play' : 'pause'
+    video[method]()
+}
+
 function getVideo() {
     navigator.mediaDevices.getUserMedia({video:true, audio: false})
     .then(localMediaStream => {
         // URL.createObjectURL with media streams is deprecated and will be removed in M68, around July 2018. Please use HTMLMediaElement.srcObject instead.
         video.src = window.URL.createObjectURL(localMediaStream)
-        video.play()
+        // video.play()
     })
     .catch(errors => {
         console.error(errors);
@@ -100,5 +106,5 @@ function takePhoto() {
 }
 
 getVideo()
-
+video.addEventListener('click', tooglePlay)
 video.addEventListener('canplay', paintToCanvas)
